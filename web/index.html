@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Adaptive Cyber IR Copilot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <h1>Adaptive Cyber Incident Response Copilot</h1>
+    <span class="badge">Capstone 2025</span>
+  </header>
+
+  <main class="layout">
+    <!-- Left column: controls + logs -->
+    <section class="panel panel-controls">
+      <h2>Attack Simulation Phases</h2>
+      <div class="phase-buttons">
+        <button data-phase="1" class="phase-btn active">Phase 1 – Brute Force</button>
+        <button data-phase="2" class="phase-btn">Phase 2 – Credential Stuffing</button>
+        <button data-phase="3" class="phase-btn">Phase 3 – Scanning / Recon</button>
+      </div>
+
+      <h3>Raw Logs (Preview)</h3>
+      <pre id="logView" class="log-view">
+Select a phase to view example logs…
+      </pre>
+    </section>
+
+    <!-- Middle column: behavior + summary -->
+    <section class="panel panel-analysis">
+      <h2>AI Analysis</h2>
+      <div class="analysis-block">
+        <h3>Behavior Classification</h3>
+        <div id="behaviorPanel" class="card"></div>
+      </div>
+      <div class="analysis-block">
+        <h3>Incident Summary</h3>
+        <div id="summaryPanel" class="card"></div>
+      </div>
+    </section>
+
+    <!-- Right column: response + critic -->
+    <section class="panel panel-response">
+      <h2>Response & Critic</h2>
+      <div class="analysis-block">
+        <h3>Defense Playbook</h3>
+        <div id="playbookPanel" class="card"></div>
+      </div>
+      <div class="analysis-block">
+        <h3>Critic Assessment</h3>
+        <div id="criticPanel" class="card"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Agents: LogIngestion • Analytics • Classifier • Summarizer • Playbook • Analyst • Critic • Loop</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

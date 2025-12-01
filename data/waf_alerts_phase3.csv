@@ -1,0 +1,4 @@
+alert_type,severity,rule_id,path
+SCANNING,MEDIUM,3003,/admin
+SCANNING,MEDIUM,3003,/admin/login
+SCANNING,MEDIUM,3003,/api/users

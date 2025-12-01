@@ -1,0 +1,4 @@
+alert_type,severity,rule_id,path
+CREDENTIAL_STUFFING,HIGH,2002,/login
+CREDENTIAL_STUFFING,HIGH,2002,/login
+CREDENTIAL_STUFFING,HIGH,2002,/login

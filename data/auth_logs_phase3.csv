@@ -1,0 +1,2 @@
+timestamp,user_id,src_ip,outcome,reason,method
+2025-01-01T14:00:01Z,admin,10.0.2.10,FAIL,WRONG_PASSWORD,password

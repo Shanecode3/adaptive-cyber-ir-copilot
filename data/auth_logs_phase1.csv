@@ -1,0 +1,6 @@
+"timestamp,user_id,src_ip,outcome,reason,method"
+"2025-01-01T12:00:01Z,alice,10.0.0.5,FAIL,WRONG_PASSWORD,password"
+"2025-01-01T12:00:02Z,alice,10.0.0.5,FAIL,WRONG_PASSWORD,password"
+"2025-01-01T12:00:03Z,bob,10.0.0.5,FAIL,WRONG_PASSWORD,password"
+"2025-01-01T12:00:04Z,charlie,10.0.0.5,FAIL,WRONG_PASSWORD,password"
+"2025-01-01T12:00:05Z,charlie,10.0.0.5,FAIL,WRONG_PASSWORD,password"

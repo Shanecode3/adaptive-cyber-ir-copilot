@@ -1,0 +1,4 @@
+"alert_type,severity,rule_id,path"
+"LOGIN_BRUTE_FORCE,MEDIUM,1001,/login"
+"LOGIN_BRUTE_FORCE,MEDIUM,1001,/login"
+"LOGIN_BRUTE_FORCE,MEDIUM,1001,/login"

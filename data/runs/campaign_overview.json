@@ -1,0 +1,84 @@
+{
+  "phases": [
+    {
+      "phase": 1,
+      "behavior_label": "NORMAL",
+      "risk_level": "LOW",
+      "risk_score": 5,
+      "defense_judgement": "EFFECTIVE",
+      "mitre_tactics": [],
+      "top_suspicious_ips": [],
+      "main_targets": [],
+      "affected_users": [],
+      "short_narrative": "No malicious activity detected. Authentication and web traffic appear normal, and no security alerts were triggered.  The system is operating as expected. No further action is required at this time.",
+      "defense_plan": {
+        "actions": [],
+        "strategy_summary": "No suspicious activity detected. No actions are recommended at this time. Monitor the system for any changes."
+      },
+      "traffic_features": {
+        "web_stats": {},
+        "auth_stats": {},
+        "alert_stats": {}
+      }
+    },
+    {
+      "phase": 2,
+      "behavior_label": "NORMAL",
+      "risk_level": "LOW",
+      "risk_score": 5,
+      "defense_judgement": "EFFECTIVE",
+      "mitre_tactics": [],
+      "top_suspicious_ips": [],
+      "main_targets": [],
+      "affected_users": [],
+      "short_narrative": "The system has detected no unusual behavior. No malicious activity was identified across web traffic, authentication, or security alerts. The current state indicates a standard operational environment.",
+      "defense_plan": {
+        "actions": [],
+        "strategy_summary": "Since the incident is classified as NORMAL with a LOW risk level, no immediate defensive actions are required. The SOC should maintain standard monitoring procedures to ensure the continued normal operation of the environment."
+      },
+      "traffic_features": {
+        "web_stats": {},
+        "auth_stats": {},
+        "alert_stats": {}
+      }
+    },
+    {
+      "phase": 3,
+      "behavior_label": "NORMAL",
+      "risk_level": "LOW",
+      "risk_score": 5,
+      "defense_judgement": "EFFECTIVE",
+      "mitre_tactics": [],
+      "top_suspicious_ips": [],
+      "main_targets": [],
+      "affected_users": [],
+      "short_narrative": "No suspicious activity was detected. Authentication logs show no unusual activity, and web traffic statistics are empty. The system is operating as expected with no indicators of compromise. No further action is required.",
+      "defense_plan": {
+        "actions": [],
+        "strategy_summary": "Since the incident is classified as NORMAL with a LOW risk level and no indicators of compromise, no immediate defensive actions are recommended. Continue to monitor system logs for any future anomalies."
+      },
+      "traffic_features": {
+        "web_stats": {},
+        "auth_stats": {},
+        "alert_stats": {}
+      }
+    }
+  ],
+  "tactic_shifts": [],
+  "overall_assessment": {
+    "behaviors_sequence": [
+      "NORMAL",
+      "NORMAL",
+      "NORMAL"
+    ],
+    "unique_behaviors": [
+      "NORMAL"
+    ],
+    "tactic_shifts": [],
+    "max_risk_level": "LOW",
+    "max_risk_score": 5,
+    "final_phase": 3,
+    "final_behavior": "NORMAL",
+    "campaign_narrative": "The attacker campaign evolved across phases with behaviors: NORMAL. Mitigations were applied at each phase based on classification and risk."
+  }
+}

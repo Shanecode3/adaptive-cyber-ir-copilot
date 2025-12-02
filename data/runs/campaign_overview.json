@@ -2,83 +2,358 @@
   "phases": [
     {
       "phase": 1,
-      "behavior_label": "NORMAL",
-      "risk_level": "LOW",
-      "risk_score": 5,
+      "behavior_label": "SIMPLE_BRUTE_FORCE",
+      "risk_level": "MEDIUM",
+      "risk_score": 75,
       "defense_judgement": "EFFECTIVE",
-      "mitre_tactics": [],
-      "top_suspicious_ips": [],
-      "main_targets": [],
-      "affected_users": [],
-      "short_narrative": "No malicious activity detected. Authentication and web traffic appear normal, and no security alerts were triggered.  The system is operating as expected. No further action is required at this time.",
+      "mitre_tactics": [
+        "Credential Access (T1110)"
+      ],
+      "top_suspicious_ips": [
+        "10.0.0.5"
+      ],
+      "main_targets": [
+        "/login"
+      ],
+      "affected_users": [
+        "alice",
+        "bob",
+        "charlie"
+      ],
+      "short_narrative": "A brute-force login attempt was detected originating from IP address 10.0.0.5. The source IP made multiple requests to the /login endpoint, all resulting in 401 Unauthorized errors. Multiple user accounts, including 'alice', 'bob', and 'charlie', were targeted in these failed login attempts. The activity triggered medium severity alerts for LOGIN_BRUTE_FORCE, indicating a potential attempt to gain unauthorized access.",
       "defense_plan": {
-        "actions": [],
-        "strategy_summary": "No suspicious activity detected. No actions are recommended at this time. Monitor the system for any changes."
+        "actions": [
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.0.5",
+            "duration": "24h",
+            "rationale": "Source IP 10.0.0.5 is exhibiting brute-force behavior against the login endpoint, indicating malicious intent."
+          },
+          {
+            "type": "LOCK_ACCOUNT",
+            "target": "alice",
+            "duration": "1h",
+            "rationale": "User 'alice' was targeted multiple times in the brute-force attempt, suggesting a direct attack on their account."
+          },
+          {
+            "type": "LOCK_ACCOUNT",
+            "target": "charlie",
+            "duration": "1h",
+            "rationale": "User 'charlie' was targeted multiple times in the brute-force attempt, suggesting a direct attack on their account."
+          },
+          {
+            "type": "REQUIRE_CAPTCHA",
+            "target": "/login",
+            "duration": "1h",
+            "rationale": "To mitigate further brute-force attempts against the login endpoint."
+          }
+        ],
+        "strategy_summary": "The strategy is to immediately block the identified malicious IP address and temporarily lock targeted user accounts to prevent further compromise. Additionally, a CAPTCHA is implemented on the login endpoint to add an extra layer of defense against automated attacks."
       },
       "traffic_features": {
-        "web_stats": {},
-        "auth_stats": {},
-        "alert_stats": {}
+        "web_stats": {
+          "status_counts": {
+            "401": 6
+          },
+          "top_paths": {
+            "/login": 6
+          },
+          "top_src_ips": {
+            "10.0.0.5": 6
+          },
+          "total_requests": 6
+        },
+        "auth_stats": {
+          "failed_logins": 5,
+          "failures_by_ip": {
+            "10.0.0.5": 5
+          },
+          "failures_by_user": {
+            "alice": 2,
+            "bob": 1,
+            "charlie": 2
+          },
+          "total_auth_events": 5
+        },
+        "alert_stats": {
+          "alert_type_counts": {
+            "LOGIN_BRUTE_FORCE": 3
+          },
+          "severity_counts": {
+            "MEDIUM": 3
+          },
+          "top_alert_paths": {
+            "/login": 3
+          }
+        }
       }
     },
     {
       "phase": 2,
-      "behavior_label": "NORMAL",
-      "risk_level": "LOW",
-      "risk_score": 5,
+      "behavior_label": "CREDENTIAL_STUFFING",
+      "risk_level": "HIGH",
+      "risk_score": 85,
       "defense_judgement": "EFFECTIVE",
-      "mitre_tactics": [],
-      "top_suspicious_ips": [],
-      "main_targets": [],
-      "affected_users": [],
-      "short_narrative": "The system has detected no unusual behavior. No malicious activity was identified across web traffic, authentication, or security alerts. The current state indicates a standard operational environment.",
+      "mitre_tactics": [
+        "Credential Access (T1110.004)"
+      ],
+      "top_suspicious_ips": [
+        "10.0.1.10",
+        "10.0.1.11",
+        "10.0.1.12",
+        "10.0.1.13",
+        "10.0.1.14",
+        "10.0.1.15"
+      ],
+      "main_targets": [
+        "/login"
+      ],
+      "affected_users": [
+        "alice",
+        "bob",
+        "charlie",
+        "david",
+        "emma",
+        "frank"
+      ],
+      "short_narrative": "An incident of credential stuffing has been detected, indicated by multiple failed login attempts (6 total) all resulting in 401 Unauthorized errors and exclusively targeting the /login endpoint. These failures were distributed across several source IPs and affected distinct user accounts including alice, bob, charlie, david, emma, and frank. The presence of 3 high-severity CREDENTIAL_STUFFING alerts strongly supports this classification.",
       "defense_plan": {
-        "actions": [],
-        "strategy_summary": "Since the incident is classified as NORMAL with a LOW risk level, no immediate defensive actions are required. The SOC should maintain standard monitoring procedures to ensure the continued normal operation of the environment."
+        "actions": [
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.10",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.11",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.12",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.13",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.14",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.1.15",
+            "duration": "24h",
+            "rationale": "IP address observed making failed login attempts, characteristic of credential stuffing."
+          },
+          {
+            "type": "REQUIRE_CAPTCHA",
+            "target": "/login",
+            "duration": "1h",
+            "rationale": "The /login endpoint is being targeted by credential stuffing attacks, CAPTCHA will help mitigate automated attempts."
+          },
+          {
+            "type": "ALERT_ON_CALL_TEAM",
+            "target": "Security Operations Center",
+            "duration": "1h",
+            "rationale": "High severity credential stuffing alerts require immediate human investigation."
+          }
+        ],
+        "strategy_summary": "Block identified suspicious IPs and enforce CAPTCHA on the login endpoint to mitigate the ongoing credential stuffing attack. Alert the SOC for further investigation and potential broader response."
       },
       "traffic_features": {
-        "web_stats": {},
-        "auth_stats": {},
-        "alert_stats": {}
+        "web_stats": {
+          "status_counts": {
+            "401": 6
+          },
+          "top_paths": {
+            "/login": 6
+          },
+          "top_src_ips": {
+            "10.0.1.10": 1,
+            "10.0.1.11": 1,
+            "10.0.1.12": 1,
+            "10.0.1.13": 1,
+            "10.0.1.14": 1
+          },
+          "total_requests": 6
+        },
+        "auth_stats": {
+          "failed_logins": 6,
+          "failures_by_ip": {
+            "10.0.1.10": 1,
+            "10.0.1.11": 1,
+            "10.0.1.12": 1,
+            "10.0.1.13": 1,
+            "10.0.1.14": 1,
+            "10.0.1.15": 1
+          },
+          "failures_by_user": {
+            "alice": 1,
+            "bob": 1,
+            "charlie": 1,
+            "david": 1,
+            "emma": 1,
+            "frank": 1
+          },
+          "total_auth_events": 6
+        },
+        "alert_stats": {
+          "alert_type_counts": {
+            "CREDENTIAL_STUFFING": 3
+          },
+          "severity_counts": {
+            "HIGH": 3
+          },
+          "top_alert_paths": {
+            "/login": 3
+          }
+        }
       }
     },
     {
       "phase": 3,
-      "behavior_label": "NORMAL",
-      "risk_level": "LOW",
-      "risk_score": 5,
+      "behavior_label": "APP_SCANNING",
+      "risk_level": "MEDIUM",
+      "risk_score": 65,
       "defense_judgement": "EFFECTIVE",
-      "mitre_tactics": [],
-      "top_suspicious_ips": [],
-      "main_targets": [],
-      "affected_users": [],
-      "short_narrative": "No suspicious activity was detected. Authentication logs show no unusual activity, and web traffic statistics are empty. The system is operating as expected with no indicators of compromise. No further action is required.",
+      "mitre_tactics": [
+        "Reconnaissance (TA0043)"
+      ],
+      "top_suspicious_ips": [
+        "10.0.2.10"
+      ],
+      "main_targets": [
+        "/admin",
+        "/admin/login",
+        "/api/users",
+        "/api/config"
+      ],
+      "affected_users": [
+        "admin"
+      ],
+      "short_narrative": "The incident involves application scanning activity originating from IP address 10.0.2.10. There were a total of 5 web requests observed, with a notable number of errors including 404 (Not Found), 401 (Unauthorized), and 403 (Forbidden). The scanning appears to target administrative and API endpoints, specifically '/admin', '/admin/login', '/api/users', and '/api/config'. Additionally, one failed authentication attempt was recorded for the user 'admin' from the suspicious IP. The presence of 3 SCANNING alerts, all with MEDIUM severity, confirms the nature of the activity.",
       "defense_plan": {
-        "actions": [],
-        "strategy_summary": "Since the incident is classified as NORMAL with a LOW risk level and no indicators of compromise, no immediate defensive actions are recommended. Continue to monitor system logs for any future anomalies."
+        "actions": [
+          {
+            "type": "BLOCK_IP",
+            "target": "10.0.2.10",
+            "duration": "24h",
+            "rationale": "The IP 10.0.2.10 is exhibiting APP_SCANNING behavior targeting administrative and API endpoints, indicating malicious intent."
+          },
+          {
+            "type": "REQUIRE_CAPTCHA",
+            "target": "/admin",
+            "duration": "1h",
+            "rationale": "To mitigate further scanning and potential brute-force attempts against the /admin endpoint."
+          },
+          {
+            "type": "INCREASE_LOGGING",
+            "target": "/admin/*",
+            "duration": "4h",
+            "rationale": "To capture more detailed information about any further attempts to access administrative areas."
+          }
+        ],
+        "strategy_summary": "Block the identified suspicious IP to immediately stop the current scanning activity. Implement a CAPTCHA on administrative interfaces to deter automated access and increase logging on these sensitive paths for enhanced monitoring."
       },
       "traffic_features": {
-        "web_stats": {},
-        "auth_stats": {},
-        "alert_stats": {}
+        "web_stats": {
+          "status_counts": {
+            "302": 1,
+            "401": 1,
+            "403": 1,
+            "404": 2
+          },
+          "top_paths": {
+            "/admin": 2,
+            "/admin/login": 1,
+            "/api/config": 1,
+            "/api/users": 1
+          },
+          "top_src_ips": {
+            "10.0.2.10": 5
+          },
+          "total_requests": 5
+        },
+        "auth_stats": {
+          "failed_logins": 1,
+          "failures_by_ip": {
+            "10.0.2.10": 1
+          },
+          "failures_by_user": {
+            "admin": 1
+          },
+          "total_auth_events": 1
+        },
+        "alert_stats": {
+          "alert_type_counts": {
+            "SCANNING": 3
+          },
+          "severity_counts": {
+            "MEDIUM": 3
+          },
+          "top_alert_paths": {
+            "/admin": 1,
+            "/admin/login": 1,
+            "/api/users": 1
+          }
+        }
       }
     }
   ],
-  "tactic_shifts": [],
+  "tactic_shifts": [
+    {
+      "from_phase": 1,
+      "to_phase": 2,
+      "from_behavior": "SIMPLE_BRUTE_FORCE",
+      "to_behavior": "CREDENTIAL_STUFFING"
+    },
+    {
+      "from_phase": 2,
+      "to_phase": 3,
+      "from_behavior": "CREDENTIAL_STUFFING",
+      "to_behavior": "APP_SCANNING"
+    }
+  ],
   "overall_assessment": {
     "behaviors_sequence": [
-      "NORMAL",
-      "NORMAL",
-      "NORMAL"
+      "SIMPLE_BRUTE_FORCE",
+      "CREDENTIAL_STUFFING",
+      "APP_SCANNING"
     ],
     "unique_behaviors": [
-      "NORMAL"
+      "SIMPLE_BRUTE_FORCE",
+      "CREDENTIAL_STUFFING",
+      "APP_SCANNING"
     ],
-    "tactic_shifts": [],
-    "max_risk_level": "LOW",
-    "max_risk_score": 5,
+    "tactic_shifts": [
+      {
+        "from_phase": 1,
+        "to_phase": 2,
+        "from_behavior": "SIMPLE_BRUTE_FORCE",
+        "to_behavior": "CREDENTIAL_STUFFING"
+      },
+      {
+        "from_phase": 2,
+        "to_phase": 3,
+        "from_behavior": "CREDENTIAL_STUFFING",
+        "to_behavior": "APP_SCANNING"
+      }
+    ],
+    "max_risk_level": "HIGH",
+    "max_risk_score": 85,
     "final_phase": 3,
-    "final_behavior": "NORMAL",
-    "campaign_narrative": "The attacker campaign evolved across phases with behaviors: NORMAL. Mitigations were applied at each phase based on classification and risk."
-  }
+    "final_behavior": "APP_SCANNING",
+    "campaign_narrative": "The attacker campaign evolved across phases with behaviors: SIMPLE_BRUTE_FORCE \u2192 CREDENTIAL_STUFFING \u2192 APP_SCANNING. Mitigations were applied at each phase based on classification and risk."
+  },
+  "errors": []
 }
